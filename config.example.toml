@@ -1,0 +1,32 @@
+# Copy to config.local.toml and adjust personal settings locally.
+# Count means new unique candidate posts, not final qualified leads.
+target_count = 100
+sort_by = "relevance" # "date_posted" for latest first
+date_posted = "past_week" # past_24_hours, past_week, past_month, all_time
+max_inspected = 500
+max_loading_actions = 50
+max_minutes = 30
+no_progress_limit = 3
+shortlist_threshold = 60
+
+# Paths and candidate facts below are examples. Keep your real values local.
+resume_dir = "../resumes"
+available_from = "2027-01-05"
+future_sponsorship = true
+
+[semantic_filters]
+location = "enforce"
+job_title = "enforce"
+skills_experience = "flag"
+start_date = "flag"
+sponsorship = "flag"
+
+# Omit queries to use the built-in alternating research-focused tech/quant map.
+# To replace it, add one or more [[queries]] blocks:
+# [[queries]]
+# keywords = '("hiring" OR "join my team") "applied scientist"'
+# track = "tech"
+# [[queries]]
+# keywords = '("hiring" OR "join my team") "quant researcher"'
+# track = "quant"
+
