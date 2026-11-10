@@ -62,6 +62,7 @@ def fake_collection_page(posts):
     page.goto = AsyncMock()
     page.wait_for_timeout = AsyncMock()
     page.mouse.wheel = AsyncMock()
+    page.mouse.move = AsyncMock()
     page.context.grant_permissions = AsyncMock()
     page.locator.side_effect = lambda selector: body if selector == 'body' else root
 
@@ -85,6 +86,19 @@ async def test_direct_posts_above_initial_page_without_clipboard(tmp_path):
     assert result['next_scroll'] == 1
     assert not result['incomplete']
     page.context.grant_permissions.assert_not_awaited()
+
+
+async def test_continuation_keeps_normalized_search_page_and_targets_feed(tmp_path):
+    collector = LinkedInCollector(tmp_path)
+    page = fake_collection_page([fixture_post(1, direct=True)])
+    page.url = 'https://www.linkedin.com/search/results/content/?normalized=true'
+    collector.start = AsyncMock(return_value=page)
+    collector.barrier = AsyncMock(return_value=None)
+    await collector.collect_page('hiring', 'relevance', 'past_week', scroll=0)
+    await collector.collect_page('hiring', 'relevance', 'past_week', scroll=1)
+    page.goto.assert_awaited_once()
+    assert page.mouse.move.await_count == 2
+    assert page.mouse.wheel.await_count == 2
 
 
 async def test_detached_expand_button_keeps_post_and_reports_partial_content(tmp_path):

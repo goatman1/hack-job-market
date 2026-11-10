@@ -20,4 +20,3 @@ running a live LinkedIn session.
   round-tripping. Use a fixture collector for automated tests. Live checks need
   an authenticated local session and must report actual limitations.
 - Preserve upstream Apache-2.0 attribution for reused LinkedIn MCP code.
-

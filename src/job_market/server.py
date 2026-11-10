@@ -72,4 +72,3 @@ def create_server(data_dir: Path, service: JobMarket | None = None) -> FastMCP:
         return app.get_run_status(run_id)
 
     return mcp
-

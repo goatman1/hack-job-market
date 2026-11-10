@@ -4,4 +4,3 @@ interface:
   default_prompt: "Use $job-search to find new relevant hiring-manager posts and update my local workbook."
 policy:
   allow_implicit_invocation: true
-

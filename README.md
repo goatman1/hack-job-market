@@ -199,9 +199,10 @@ collector uses its own Chromium profile through the pinned browser dependency.
 
 ## Validation snapshot — November 10, 2026
 
-- 74 automated tests passed, including MCP protocol calls, URL aliases,
+- 75 automated tests passed, including MCP protocol calls, URL aliases,
   partial collection recovery, evidence validation, and Excel edit round-tripping.
 - A live authenticated run collected 30 unique posts and stopped at its target.
+- A single-search scroll test returned 18 unique posts, exceeding the initial result batch.
 - Ten posts were manually audited into 11 role assessments: six excluded and five
   needing review. No reviewed role met every shortlist gate; the other 20 posts
   remain unassessed candidates. Repeating assessment submission added no duplicates.

@@ -62,4 +62,3 @@ search from reaching its requested target. Never claim full LinkedIn coverage.
   not new recommendations. Do not erase tracking status to resurface a lead.
 - Keep all local resumes and collected personal data out of Git commits and
   public reports. Use only the evidence needed by each worker.
-

@@ -68,4 +68,3 @@ specific supported qualifications, and ask briefly about fit or a conversation.
 Do not invent shared connections, claim an attachment, promise availability that
 conflicts with the candidate configuration, or imply that research has already
 been published when its status is uncertain. Do not send the draft.
-

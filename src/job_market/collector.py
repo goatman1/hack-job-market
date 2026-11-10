@@ -42,6 +42,7 @@ class LinkedInCollector:
         self.data_dir = Path(data_dir)
         self.manager = None
         self.search_url = None
+        self.page_location = None
         cache = self.data_dir / 'post-links.json'
         self.links = json.loads(cache.read_text(encoding='utf-8')) if cache.exists() else {}
 
@@ -109,14 +110,16 @@ class LinkedInCollector:
         browser = await self.start()
         url = LinkedInExtractor._build_post_search_url(query, date_posted=date_posted,
                                                        sort_by=sort_by, page=page)
-        if self.search_url != url or browser.url != url:
+        if self.search_url != url or browser.url != self.page_location:
             await browser.goto(url, wait_until='domcontentloaded', timeout=30000)
             await browser.wait_for_timeout(2000)
             # Restore scroll position after an interrupted process or another query.
             for _ in range(scroll):
+                await browser.mouse.move(400, 550)
                 await browser.mouse.wheel(0, 1600)
                 await browser.wait_for_timeout(500)
         self.search_url = url
+        self.page_location = browser.url
         blocked = await self.barrier(browser)
         if blocked:
             return {'posts': [], 'blocked': blocked}
@@ -207,6 +210,7 @@ class LinkedInCollector:
         if not posts and not any(x in body for x in ['no results found', 'no results for']):
             return {'posts': [], 'blocked': 'unsupported_page_markup', 'error': 'No post containers identified; inspect selectors before continuing.'}
         if not incomplete:
+            await browser.mouse.move(400, 550)
             await browser.mouse.wheel(0, 1800)
             await browser.wait_for_timeout(1500)
         result = {'posts': resolved, 'exhausted': not posts, 'next_page': page,
@@ -239,12 +243,3 @@ class LinkedInCollector:
             text = re.split(r'\n(?:More profiles for you|People also viewed|People you may know)\s*\n', text, maxsplit=1)[0]
             sources.append({'url': url, 'text': text})
         return {'profile_url': profile_url, 'sources': sources}
-
-
-
-
-
-
-
-
-
