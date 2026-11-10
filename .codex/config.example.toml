@@ -1,0 +1,9 @@
+# Copy to config.toml and replace absolute paths, or run job-market configure-codex.
+# This file is an example; config.toml is machine-local and ignored by Git.
+[mcp_servers.job-market]
+command = "C:/path/to/hack-job-market/.venv/Scripts/python.exe"
+args = ["-m", "job_market", "--data-dir", "C:/path/to/hack-job-market/.local", "serve"]
+cwd = "C:/path/to/hack-job-market"
+startup_timeout_sec = 30
+tool_timeout_sec = 180
+enabled_tools = ["start_run", "collect_posts", "get_author_evidence", "get_analysis_batch", "save_assessments", "list_leads", "update_lead", "sync_workbook", "get_run_status"]
